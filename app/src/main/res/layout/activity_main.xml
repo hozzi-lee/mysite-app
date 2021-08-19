@@ -4,9 +4,19 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
 
     tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="방명록쓰기"
+        app:titleTextColor="#ffffff"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,7 +95,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnWrite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="저장"
