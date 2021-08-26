@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="8dp"
+
+    tools:context=".ReadActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#000000"
+        app:title="방명록 글"
+        app:titleTextColor="#ffffff"
+        />
+
+    <!-- Line 1 - NO -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="번호"
+            android:textSize="20dp"
+            android:layout_weight="2"
+            android:padding="6dp"
+            />
+        <TextView
+            android:id="@+id/txtNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="data - no"
+            android:textSize="20dp"
+            android:layout_weight="5"
+            android:padding="6dp"
+            />
+
+    </LinearLayout>
+    <!-- // Line 1 - NO -->
+
+    <!-- Line 2 - NAME -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textSize="20dp"
+            android:layout_weight="2"
+            android:padding="6dp"
+            />
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="data - name"
+            android:textSize="20dp"
+            android:layout_weight="5"
+            android:padding="6dp"
+            />
+
+    </LinearLayout>
+    <!-- // Line 2 - NAME -->
+
+    <!-- Line 3 - REGDATE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="작성일"
+            android:textSize="20dp"
+            android:layout_weight="2"
+            android:padding="6dp"
+            />
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="data - regDate"
+            android:textSize="20dp"
+            android:layout_weight="5"
+            android:padding="6dp"
+            />
+
+    </LinearLayout>
+    <!-- // Line 3 - REGDATE -->
+
+    <!-- Line 4 - CONTENT -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="내용"
+            android:textSize="20dp"
+            android:layout_weight="2"
+            android:padding="6dp"
+            />
+        <TextView
+            android:id="@+id/txtContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="data - content"
+            android:textSize="20dp"
+            android:layout_weight="5"
+            android:padding="6dp"
+            />
+
+    </LinearLayout>
+    <!-- // Line 4 - CONTENT -->
+
+    <!-- Button Go List -->
+    <Button
+        android:id="@+id/btnGoList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="리스트로 돌아가기"
+        android:layout_gravity="center"
+        android:backgroundTint="#000000"
+        />
+    <!-- // Button Go List -->
+
+</LinearLayout>

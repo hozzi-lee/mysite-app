@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,7 +15,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.javaex.vo.GuestbookVo;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -90,13 +99,10 @@ public class MainActivity extends AppCompatActivity {
                         "INFORMATION [name= " + name + ", password= " + password + ", content= " + content + "]",
                         Toast.LENGTH_SHORT).show();
 
-                // 서버에 전송
-                Log.d("onClick", "서버전송................");
+                // 독립해서 실행
+                WriteAsyncTask writeAsyncTask = new WriteAsyncTask();
+                writeAsyncTask.execute(guestVo);
 
-
-                // 리스트 액티비티로 전환
-                Intent intent = new Intent(MainActivity.this, ListActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -125,5 +131,77 @@ public class MainActivity extends AppCompatActivity {
         btnSave = (Button)findViewById(R.id.btnSave);
         btnSave.setOnClickListener(listener)
         */
+    }
+
+
+
+    // METHOD - 3) 이너클래스 inner Class
+    public class WriteAsyncTask extends AsyncTask<GuestbookVo, Integer, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(GuestbookVo... guestbookVo) {
+            Log.d("doInBackground", "실행");
+            Log.d("doInBackground", "guestVo= " + guestbookVo[0].toString());
+
+            // vo --> json
+            Gson gson = new Gson();
+            String json = gson.toJson(guestbookVo[0]);
+            Log.d("doInBackground", "gson --> json= " + json);
+            
+            // 데이터 전송(outputStream == json --> body)
+            try {
+                // 접속정보
+                URL url = new URL("http://192.168.35.135:8088/mysite5/api/guestbook/add2");  //url 생성
+
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();  //url 연결
+                conn.setConnectTimeout(10000); // 10초 동안 기다린 후 응답이 없으면 종료
+                conn.setRequestMethod("POST"); // 요청방식 POST
+                conn.setRequestProperty("Content-Type", "application/json"); //요청시 데이터 형식 json
+                conn.setRequestProperty("Accept", "application/json"); //응답시 데이터 형식 json
+                conn.setDoOutput(true); //OutputStream으로 POST 데이터를 넘겨주겠다는 옵션.
+                conn.setDoInput(true); //InputStream으로 서버로 부터 응답을 받겠다는 옵션.
+
+                // 전송
+                OutputStream os = conn.getOutputStream();
+                OutputStreamWriter osw = new OutputStreamWriter(os);
+                BufferedWriter bw = new BufferedWriter(osw);
+
+                bw.write(json);
+                bw.flush();
+
+                int resCode = conn.getResponseCode(); // 응답코드 200이 정상
+                Log.d("doInBackground-conn", "resCode= " + resCode);
+
+
+                if(resCode == HttpURLConnection.HTTP_OK){ // 정상이면(HTTP_OK == 200)
+                    // 서버에 전송
+                    Log.d("onClick", "서버전송................");
+
+                    // 리스트 액티비티로 전환 - 종료
+//                    Intent intent = new Intent(MainActivity.this, ListActivity.class);
+//                    startActivity(intent);
+                    finish();
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
 }
